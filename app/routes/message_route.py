@@ -9,9 +9,8 @@ def create_message_blueprint(message_service):
 
     @message_bp.route("/send-message", methods=["POST"])
     def send_message() -> str:
-        content = request.get_json()
-        print(content)
-        return message_service.send_message()
+        user_message = request.get_json()
+        return message_service.send_message(user_message["content"])
 
     @message_bp.route("/edit-message/<int:message_id>", methods=["PUT"])
     def edit_message():

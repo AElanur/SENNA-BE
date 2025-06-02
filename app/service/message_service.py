@@ -1,6 +1,6 @@
 class MessageService:
-    def __init__(self):
-        pass
+    def __init__(self, chatbot):
+        self.chatbot = chatbot
 
     def get_messages(self, chat_id: int) -> list[dict]:
         messages = [
@@ -17,8 +17,10 @@ class MessageService:
         ]
         return messages
 
-    def send_message(self):
-        response_message = '{ "sender":"Bot", "recipient":"Ahsen", "content":"Hallo, hoe gaat het?" }'
+    def send_message(self, user_message: str):
+        print(user_message)
+        response_message = self.chatbot.send_message(user_message)
+        print("Bot response: " + response_message)
         return response_message
 
     def update_message(self):
