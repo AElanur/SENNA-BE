@@ -1,6 +1,6 @@
 from torch.utils.data import Dataset
 
-class QADataset(Dataset):
+class CommunicationData(Dataset):
     def __init__(self, qa_pairs, tokenizer, max_length=64):
         self.qa_pairs = qa_pairs
         self.tokenizer = tokenizer
@@ -11,7 +11,6 @@ class QADataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.qa_pairs[idx]
-
         input_text = "question: " + item["question"]
         target_text = item["answer"]
 
