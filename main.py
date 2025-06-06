@@ -1,5 +1,5 @@
 import logging
-from . import create_app
+from app import create_app
 
 def configure_logging():
     logging.getLogger().setLevel(logging.WARNING)
