@@ -1,0 +1,26 @@
+{
+  "helios_brahma": {
+    "type": "dialog_list",
+    "fields": ["text"],
+    "role_markers": {
+      "user": "<HUMAN>:",
+      "assistant": "<ASSISTANT>:"
+    }
+  },
+  "daily_dialog": {
+    "type": "dialog_list",
+    "fields": ["dialog"]
+  },
+  "esc_conv": {
+    "type": "dialog_list",
+    "fields": ["dialog"]
+  },
+  "chatbot_arena": {
+    "type": "dialog_list",
+    "fields": ["conversation"]
+  },
+  "tweet_sentiment": {
+    "type": "classification",
+    "fields": ["text", "label"]
+  }
+}
