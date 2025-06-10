@@ -12,8 +12,9 @@ class ClassificationData(Dataset):
 
     def __getitem__(self, idx):
         item = self.pairs[idx]
-        text = item["question"]  # or item["text"], depending on your parsing
-        label = int(item["answer"])  # or item["label"]
+
+        text = item["input"]
+        label = int(item["target"])
         enc = self.tokenizer(
             text, padding="max_length", truncation=True,
             max_length=self.max_length, return_tensors="pt"

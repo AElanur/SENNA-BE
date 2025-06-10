@@ -7,12 +7,14 @@ class CommunicationData(Dataset):
         self.max_length = max_length
 
     def __len__(self):
+        print("Sample:", self.qa_pairs[:3])
+        print("Total samples:", len(self.qa_pairs))
         return len(self.qa_pairs)
 
     def __getitem__(self, idx):
         item = self.qa_pairs[idx]
-        input_text = "question: " + item["question"]
-        target_text = item["answer"]
+        input_text = item["input"]
+        target_text = item["target"]
 
         input_enc = self.tokenizer(
             input_text, padding="max_length", truncation=True,

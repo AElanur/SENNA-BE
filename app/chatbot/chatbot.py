@@ -12,12 +12,28 @@ class Chatbot:
         self.model.to(self.device)
         self.max_length = max_length
 
-    def generate_message(self, user_message, predicted_class=None):
-        # Optionally condition on class
-        if predicted_class is not None:
-            input_text = f"[CLASS_{predicted_class}] {user_message}"
-        else:
-            input_text = user_message
+    @staticmethod
+    def check_message_history(conversation_history):
+        formatted_history = ""
+        for turn in conversation_history:
+            formatted_history += f"{turn['input']}\n"
+        return formatted_history
+
+    @staticmethod
+    def format_conversation_natural(conversation_history):
+        lines = []
+        for idx, turn in enumerate(conversation_history):
+            if 'input' in turn:
+                lines.append(f"User: {turn['input'].strip()}")
+            if 'target' in turn:
+                lines.append(f"Bot: {turn['target'].strip()}")
+        return "\n".join(lines)
+
+    def generate_message(self, conversation_history, predicted_class=None):
+        history_window = conversation_history[-4:]
+        input_text = self.format_conversation_natural(history_window)
+        # if predicted_class is not None:
+        #     input_text = f"[CLASS_{predicted_class}]\n{input_text}"
 
         inputs = self.tokenizer(
             input_text,
@@ -42,3 +58,4 @@ class Chatbot:
             )
         response = self.tokenizer.decode(output[0], skip_special_tokens=True)
         return response
+

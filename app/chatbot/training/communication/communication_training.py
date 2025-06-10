@@ -16,7 +16,7 @@ reader = DatasetReader(dataset_ini_path)
 qa_pairs = reader.load_and_prepare_all_datasets()
 tokenizer = get_tokenizer("t5-small")
 model = get_model("t5-small")
-dataset = CommunicationData(qa_pairs, tokenizer, max_length=64)
+dataset = CommunicationData(qa_pairs, tokenizer, max_length=256)
 
 trainer = TrainModel(model, dataset, save_dir)
 trainer.train()
