@@ -33,15 +33,15 @@ class MessageRepository:
     @staticmethod
     def insert_message(user_message):
         query = (
-            'INSERT INTO "Message" ("sender_id", "chat_id", "content", "timestamp", "sender_type") '
+            'INSERT INTO "Message" ("chat_id", "user_id", "content", "timestamp", "sender_type") '
             'VALUES (%s, %s, %s, %s, %s)'
         )
         try:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(query, (
-                    user_message["sender_id"],
                     user_message["chat_id"],
+                    user_message["user_id"],
                     user_message["content"],
                     datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
                     user_message["sender_type"]

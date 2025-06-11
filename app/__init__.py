@@ -29,6 +29,7 @@ def create_app():
 
     chatbot = Chatbot(model_path, max_length)
 
+
     embed_dim = 100
     num_classes = 5
     personality_model = TextCNN(vocab_size=len(vocab), embed_dim=embed_dim, num_classes=num_classes)
@@ -40,11 +41,13 @@ def create_app():
     message_repository = MessageRepository()
     chat_repository = ChatRepository()
     traits_of_user_repository = TraitsOfUserRepository()
-    bot_service = BotService(chatbot, personality_model, message_repository, traits_of_user_repository, chat_repository, trait_info)
+    chatbot_classifier = ChatbotClassifier(traits_of_user_repository)
+    bot_service = BotService(chatbot, chatbot_classifier, personality_model, message_repository, traits_of_user_repository, chat_repository, trait_info)
 
     message_service = MessageService(bot_service, message_repository)
     chat_service = ChatService(bot_service, chat_repository)
     traits_of_user_service = TraitsOfUserService(traits_of_user_repository)
+
 
 
     message_bp = message_route.create_message_blueprint(message_service)

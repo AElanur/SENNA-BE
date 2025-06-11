@@ -3,8 +3,9 @@ import torch
 
 
 class BotService:
-    def __init__(self, bot_model, personality_model, message_repository, traits_of_user_repository, chat_repository, trait_info):
+    def __init__(self, bot_model, chatbot_classifier, personality_model, message_repository, traits_of_user_repository, chat_repository, trait_info):
         self.bot_model = bot_model
+        self.chatbot_classifier = chatbot_classifier
         self.personality_model = personality_model
         self.message_repository = message_repository
         self.traits_of_user_repository = traits_of_user_repository
@@ -51,7 +52,7 @@ class BotService:
 
         bot_message = {
             "chat_id": data['chat_id'],
-            "sender_id": self.get_bot_id(data['chat_id']),
+            "user_id": self.get_bot_id(data['chat_id']),
             "content": bot_response,
             "sender_type": "bot",
             "trait_identifier": detected_trait
@@ -84,4 +85,4 @@ class BotService:
         self.message_repository.insert_message(data)
 
     def insert_trait_to_user(self, data):
-        self.traits_of_user_repository.insert_trait(data)
+        self.chatbot_classifier.classify_trait(data)
