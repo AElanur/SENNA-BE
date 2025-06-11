@@ -1,0 +1,283 @@
+{
+  "personality": [
+    {
+      "id": "O",
+      "personality-matrix": "Openness"
+    },
+    {
+      "id": "C",
+      "personality-matrix": "Conscientiousness"
+    },
+    {
+      "id": "E",
+      "personality-matrix": "Extraversion"
+    },
+    {
+      "id": "A",
+      "personality-matrix": "Agreeableness"
+    },
+    {
+      "id": "N",
+      "personality-matrix": "Neuroticism"
+    }
+  ],
+  "traits": [
+    {
+      "trait_identifier": "Creative",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Curious",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Imaginative",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Artistic",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Intellectual",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Adventurous",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Insightful",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Original",
+      "personality_id": "O"
+    },
+    {
+      "trait_identifier": "Organized",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Reliable",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Diligent",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Dependable",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Persistent",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Thorough",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Self-disciplined",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Efficient",
+      "personality_id": "C"
+    },
+    {
+      "trait_identifier": "Outgoing",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Energetic",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Sociable",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Assertive",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Talkative",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Cheerful",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Gregarious",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Enthusiastic",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Compassionate",
+      "personality_id": "A"
+    },
+    {
+      "trait_identifier": "Trusting",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Altruistic",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Cooperative",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Generous",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Forgiving",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Modest",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Sympathetic",
+      "personality_id": "A"
+    },
+    {
+      "trait_identifier": "Sensitive",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Insecure",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Anxious",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Moody",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Vulnerable",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Self-conscious",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Temperamental",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Easily stressed",
+      "personality_id": "N"
+    },
+    {
+      "trait_identifier": "Suicidal",
+      "personality_id": "N"
+    }
+  ],
+  "trait_keywords": [
+    {
+      "trait_identifier": "Creative",
+      "keywords": ["creative", "original", "innovative", "ideas"]
+    },
+    {
+      "trait_identifier": "Curious",
+      "keywords": ["curious", "explore", "discover", "new experiences"]
+    },
+    {
+      "trait_identifier": "Organized",
+      "keywords": ["organized", "orderly", "neat", "tidy"]
+    },
+    {
+      "trait_identifier": "Reliable",
+      "keywords": ["reliable", "dependable", "trustworthy", "count on"]
+    },
+    {
+      "trait_identifier": "Sociable",
+      "keywords": ["sociable", "outgoing", "talkative", "meet people"]
+    },
+    {
+      "trait_identifier": "Energetic",
+      "keywords": ["energetic", "full of energy", "active"]
+    },
+    {
+      "trait_identifier": "Altruistic",
+      "keywords": ["altruistic", "help others", "selfless", "generous"]
+    },
+    {
+      "trait_identifier": "Forgiving",
+      "keywords": ["forgiving", "let go", "move on", "forgive"]
+    },
+    {
+      "trait_identifier": "Anxious",
+      "keywords": ["anxious", "worry", "nervous", "uneasy"]
+    },
+    {
+      "trait_identifier": "Self-conscious",
+      "keywords": ["self-conscious", "awkward", "shy", "embarrassed", "insecure"]
+    }
+  ],
+  "data": [
+    {
+        "input": "I enjoy trying new and different activities.",
+        "personality_id": "O",
+        "trait_identifier": "Adventurous"
+    },
+    {
+      "input": "I often come up with new and original ideas.",
+      "personality_id": "O",
+      "trait_identifier": "Creative"
+    },
+    {
+      "input": "I am always looking for new experiences.",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "I make sure that tasks are completed thoroughly.",
+      "personality_id": "C",
+      "trait_identifier": "Thorough"
+    },
+    {
+      "input": "People can count on me to keep my promises.",
+      "personality_id": "C",
+      "trait_identifier": "Reliable"
+    },
+    {
+      "input": "I find it easy to strike up a conversation with strangers.",
+      "personality_id": "E",
+      "trait_identifier": "Sociable"
+    },
+    {
+      "input": "I am full of energy most of the time.",
+      "personality_id": "E",
+      "trait_identifier": "Energetic"
+    },
+    {
+      "input": "I often put others' needs before my own.",
+      "personality_id": "A",
+      "trait_identifier": "Altruistic"
+    },
+    {
+      "input": "I tend to forgive people easily.",
+      "personality_id": "A",
+      "trait_identifier": "Forgiving"
+    },
+    {
+      "input": "I frequently worry about things that might go wrong.",
+      "personality_id": "N",
+      "trait_identifier": "Anxious"
+    },
+    {
+      "input": "I sometimes feel self-conscious in social situations.",
+      "personality_id": "N",
+      "trait_identifier": "Self-conscious"
+    }
+  ]
+}

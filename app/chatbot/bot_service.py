@@ -1,26 +1,69 @@
+from .training.big5.tokenizer import vocab, text_to_indices
+import torch
+
+
 class BotService:
-    def __init__(self, classifier, bot_model, message_repository, chat_repository):
-        self.classifier = classifier
+    def __init__(self, bot_model, personality_model, message_repository, traits_of_user_repository, chat_repository, trait_info):
         self.bot_model = bot_model
+        self.personality_model = personality_model
         self.message_repository = message_repository
+        self.traits_of_user_repository = traits_of_user_repository
         self.chat_repository = chat_repository
+        self.trait_info = trait_info
+
+    def analyze_personality_trait(self, user_message):
+        text = user_message.lower()
+
+        indices = text_to_indices(user_message, vocab)
+        input_tensor = torch.tensor([indices], dtype=torch.long).to(self.personality_model.embedding.weight.device)
+        with torch.no_grad():
+            logits = self.personality_model(input_tensor)
+            predicted_class = logits.argmax(dim=1).item()
+
+        personality_label = self.trait_info[predicted_class]["label"]
+        trait_identifiers = self.trait_info[predicted_class]["trait_identifiers"]
+        keywords = self.trait_info[predicted_class]["keywords"]
+
+        matched_identifier = None
+        for trait, kw_list in zip(trait_identifiers, self.trait_info[predicted_class]["trait_identifiers"]):
+            if trait.lower() in text:
+                matched_identifier = trait
+                break
+
+        if not matched_identifier:
+            for trait, kw_list in zip(trait_identifiers, keywords):
+                if any(kw in text for kw in (kw_list if isinstance(kw_list, list) else [kw_list])):
+                    matched_identifier = trait
+                    break
+
+        if not matched_identifier:
+            matched_identifier = trait_identifiers[0]
+
+        return matched_identifier
 
     def handle_message(self, data):
         conversation_history = self.get_conversation_history(data['chat_id'])
         bot_response = self.generate_response(conversation_history)
+        user_message = conversation_history[-1]["input"]
+
+        detected_trait = self.analyze_personality_trait(user_message)
+        print(f'Trait detected: {detected_trait}')
+
         bot_message = {
             "chat_id": data['chat_id'],
             "sender_id": self.get_bot_id(data['chat_id']),
             "content": bot_response,
-            "sender_type": "bot"
+            "sender_type": "bot",
+            "trait_identifier": detected_trait
         }
         self.insert_message(bot_message)
+        self.insert_trait_to_user(bot_message)
         return {"status": "success", "message": "Bot response inserted."}
 
     def generate_response(self, conversation_history):
         user_message = conversation_history[-1]["input"]
-        predicted_class, probs = self.classifier.classify_message(user_message)
-        response = self.bot_model.generate_message(conversation_history, predicted_class)
+
+        response = self.bot_model.generate_message(conversation_history, user_message)
         return response
 
     def get_conversation_history(self, chat_id):
@@ -39,3 +82,6 @@ class BotService:
 
     def insert_message(self, data):
         self.message_repository.insert_message(data)
+
+    def insert_trait_to_user(self, data):
+        self.traits_of_user_repository.insert_trait(data)
