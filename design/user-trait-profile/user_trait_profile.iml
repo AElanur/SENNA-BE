@@ -1,0 +1,49 @@
+@startuml
+
+' --- Classes ---
+class User {
+    user_id: int
+    user_name: string
+}
+
+class Message {
+    message_id: int
+    chat_id: int
+    user_id: int
+    message_content: string
+    timestamp: datetime
+    sender_type: string
+}
+
+class MessagesOfUser {
+    message_of_user_id: int
+    user_id: int
+    messaging_count: int
+}
+
+class TraitsOfUser {
+    traits_of_user_id: int
+    user_id: int
+    trait_id: int
+    trait_count: int
+    trait_possession: boolean
+}
+
+' --- Relationships ---
+TraitsOfUser -down- User
+TraitsOfUser -- MessagesOfUser
+
+MessagesOfUser -down- User
+MessagesOfUser -- Message
+
+Message -right- User
+
+' --- Note Placement ---
+note left of MessagesOfUser
+  Because of privacy, messages of user are not stored.
+  However, to analyze if a user has a certain trait,
+  a percentage is needed to see how often this trait was
+  recognized before this can be assigned to the user.
+end note
+
+@enduml
