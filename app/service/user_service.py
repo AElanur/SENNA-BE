@@ -14,7 +14,21 @@ class UserService:
         }
         return self.user_repository.create_user(user)
 
-    def hash_password(self, user_password):
+    def login_user(self, user_data):
+        user = self.user_repository.get_user(user_data["username"])
+        submitted_password = user_data["password"].encode('utf-8')
+        user_password = user[2]
+        if isinstance(user_password, memoryview):
+            user_password = user_password.tobytes()
+
+        if bcrypt.checkpw(submitted_password, user_password):
+            return user[0]
+
+        else:
+            return "Password is incorrect"
+
+    @staticmethod
+    def hash_password(user_password):
         password = user_password.encode('utf-8')
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(password, salt)
