@@ -4,7 +4,6 @@ class MessageService:
         self.message_repository = message_repository
 
     def get_messages(self, chat_id: int) -> list[dict]:
-        chat_id = 1
         messages = self.message_repository.get_messages_from_chat(chat_id)
         return messages
 
@@ -16,9 +15,16 @@ class MessageService:
 
     def insert_message(self, data):
         self.message_repository.insert_message(data)
+        self.delete_messages_after_limit(data["user_id"])
 
     def update_message(self):
         pass
 
-    def delete_message(self):
-        pass
+    def delete_messages_after_limit(self, user_id):
+        messages = self.get_messages(user_id)
+        if len(messages) > 10:
+            message = next(iter(messages))
+            self.delete_message(message['message_id'])
+
+    def delete_message(self, message_id):
+        self.message_repository.delete_message(message_id)
