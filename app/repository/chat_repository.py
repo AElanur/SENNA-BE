@@ -2,9 +2,29 @@ from .connection_repository import create_connection
 
 class ChatRepository:
     @staticmethod
+    def create_chatbot(chatbot_data):
+        query = (
+            'INSERT INTO "Chatbot" (chatbot_name, created_by_user_id) '
+            'VALUES (%s, %s) '
+            'RETURNING chatbot_id'
+        )
+        try:
+            with create_connection() as connection:
+                cursor = connection.cursor()
+                cursor.execute(query, (
+                    chatbot_data['botName'],
+                    chatbot_data['userID']
+                ))
+                chatbot_id = cursor.fetchone()[0]
+                connection.commit()
+                return chatbot_id
+        except Exception as e:
+            print("Error creating chatbot:", e)
+
+    @staticmethod
     def create_chat(chat_data):
         query = (
-            'INSERT INTO "Chat" (user_id, bot_id) '
+            'INSERT INTO "Chat" (user_id, chatbot_id) '
             'VALUES (%s, %s) '
             'RETURNING chat_id'
         )
@@ -13,15 +33,11 @@ class ChatRepository:
                 cursor = connection.cursor()
                 cursor.execute(query, (
                     chat_data['user_id'],
-                    chat_data['bot_id']
+                    chat_data['chatbot_id']
                 ))
-                result = cursor.fetchone()
-                if result:
-                    chat_id = result[0]
-                    connection.commit()
-                    return chat_id
-                else:
-                    return None
+                chat_id = cursor.fetchone()[0]
+                connection.commit()
+                return chat_id
         except Exception as e:
             print("Error creating chat:", e)
 
