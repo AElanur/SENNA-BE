@@ -21,3 +21,19 @@ class UserRepository:
                 return user_id
         except Exception as e:
             print("Error inserting trait:", e)
+
+    @staticmethod
+    def get_user(user_data):
+        query = (
+            'SELECT user_id, username, password FROM "User" '
+            'WHERE username = %s;'
+        )
+        try:
+            with create_connection() as connection:
+                cursor = connection.cursor()
+                cursor.execute(query, (user_data,))
+                user_data = cursor.fetchone()
+                connection.commit()
+                return user_data
+        except Exception as e:
+            print("Error inserting trait:", e)
