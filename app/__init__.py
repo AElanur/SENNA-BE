@@ -6,12 +6,15 @@ from app.chatbot.bot_service import BotService
 from app.repository.chat_repository import ChatRepository
 from app.repository.message_repository import MessageRepository
 from app.repository.traits_of_user_repository import TraitsOfUserRepository
+from app.repository.user_repository import UserRepository
 from app.routes import message_route
 from app.routes import chat_route
 from app.routes import traits_of_user_route
+from app.routes import user_route
 from app.service.chat_service import ChatService
 from app.service.message_service import MessageService
 from app.service.traits_of_user_service import TraitsOfUserService
+from app.service.user_service import UserService
 from app.chatbot.chatbot_classifier import ChatbotClassifier
 from app.chatbot.chatbot import Chatbot
 from app.chatbot.training.big5.text_cnn import TextCNN
@@ -39,6 +42,7 @@ def create_app():
     personality_model.eval()
 
     message_repository = MessageRepository()
+    user_repository = UserRepository()
     chat_repository = ChatRepository()
     traits_of_user_repository = TraitsOfUserRepository()
     chatbot_classifier = ChatbotClassifier(traits_of_user_repository)
@@ -47,16 +51,17 @@ def create_app():
     message_service = MessageService(bot_service, message_repository)
     chat_service = ChatService(bot_service, chat_repository)
     traits_of_user_service = TraitsOfUserService(traits_of_user_repository)
-
-
+    user_service = UserService(user_repository)
 
     message_bp = message_route.create_message_blueprint(message_service)
     chat_bp = chat_route.create_chat_blueprint(chat_service)
     traits_of_user_bp = traits_of_user_route.create_traits_of_user_blueprint(traits_of_user_service)
+    user_bp = user_route.create_user_blueprint(user_service)
 
     app.register_blueprint(message_bp)
     app.register_blueprint(chat_bp)
     app.register_blueprint(traits_of_user_bp)
+    app.register_blueprint(user_bp)
 
     return app
 
