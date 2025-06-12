@@ -59,6 +59,10 @@
       "personality_id": "C"
     },
     {
+      "trait_identifier": "Unorganized",
+      "personality_id": "C"
+    },
+    {
       "trait_identifier": "Reliable",
       "personality_id": "C"
     },
@@ -96,6 +100,10 @@
     },
     {
       "trait_identifier": "Sociable",
+      "personality_id": "E"
+    },
+    {
+      "trait_identifier": "Confident",
       "personality_id": "E"
     },
     {
@@ -138,10 +146,16 @@
       "trait_identifier": "Forgiving",
       "personality_id": "A"
     },{
+      "trait_identifier": "Unforgiving",
+      "personality_id": "A"
+    },{
       "trait_identifier": "Modest",
       "personality_id": "A"
     },{
       "trait_identifier": "Sympathetic",
+      "personality_id": "A"
+    },{
+      "trait_identifier": "Rude",
       "personality_id": "A"
     },
     {
@@ -177,7 +191,7 @@
       "personality_id": "N"
     },
     {
-      "trait_identifier": "Suicidal",
+      "trait_identifier": "Calm",
       "personality_id": "N"
     }
   ],
@@ -188,11 +202,19 @@
     },
     {
       "trait_identifier": "Curious",
-      "keywords": ["curious", "explore", "discover", "new experiences"]
+      "keywords": ["curious", "explore", "discover", "new experiences", "find out", "tell me more", "what else"]
+    },
+    {
+      "trait_identifier": "Confident",
+      "keywords": ["confident", "Self-assured"]
     },
     {
       "trait_identifier": "Organized",
       "keywords": ["organized", "orderly", "neat", "tidy"]
+    },
+    {
+      "trait_identifier": "Unorganized",
+      "keywords": ["unorganized", "not orderly", "not neat", "chaotic"]
     },
     {
       "trait_identifier": "Reliable",
@@ -215,12 +237,36 @@
       "keywords": ["forgiving", "let go", "move on", "forgive"]
     },
     {
+      "trait_identifier": "Unforgiving",
+      "keywords": ["unforgiving", "hooked on", "vengeful", "don't forgive", "won't forgive"]
+    },
+    {
       "trait_identifier": "Anxious",
       "keywords": ["anxious", "worry", "nervous", "uneasy"]
     },
     {
+      "trait_identifier": "Rude",
+      "keywords": [
+        "rude",
+        "you suck",
+        "you're stupid"
+      ]
+    },
+    {
+      "trait_identifier": "Hateful",
+      "keywords": ["rude", "you suck", "you're stupid"]
+    },
+    {
       "trait_identifier": "Self-conscious",
       "keywords": ["self-conscious", "awkward", "shy", "embarrassed", "insecure"]
+    },
+    {
+      "trait_identifier": "Calm",
+      "keywords": ["calm", "emotionally stable", "composed", "relaxed"]
+    },
+    {
+      "trait_identifier": "Insecure",
+      "keywords": ["insecure", "uncertain", "not sure", "held back", "lack confidence", "doubt myself", "not confident"]
     }
   ],
   "data": [
@@ -240,7 +286,42 @@
       "trait_identifier": "Curious"
     },
     {
+      "input": "I am curious by nature.",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "Tell me more!",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "I'm dying to find out!",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "I can't wait to figure it out!",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "What else can you tell me?",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
+      "input": "I have to find out.",
+      "personality_id": "O",
+      "trait_identifier": "Curious"
+    },
+    {
       "input": "I make sure that tasks are completed thoroughly.",
+      "personality_id": "C",
+      "trait_identifier": "Thorough"
+    },
+    {
+      "input": "I love completing tasks thoroughly.",
       "personality_id": "C",
       "trait_identifier": "Thorough"
     },
@@ -270,14 +351,79 @@
       "trait_identifier": "Forgiving"
     },
     {
+      "input": "I do not forgive people easily.",
+      "personality_id": "A",
+      "trait_identifier": "Unforgiving"
+    },
+    {
+      "input": "You suck.",
+      "personality_id": "A",
+      "trait_identifier": "Rude"
+    },
+    {
+      "input": "You are stupid.",
+      "personality_id": "A",
+      "trait_identifier": "Rude"
+    },
+    {
+      "input": "No one likes you.",
+      "personality_id": "A",
+      "trait_identifier": "Rude"
+    },
+    {
+      "input": "I hate you.",
+      "personality_id": "A",
+      "trait_identifier": "Rude"
+    },
+    {
       "input": "I frequently worry about things that might go wrong.",
       "personality_id": "N",
       "trait_identifier": "Anxious"
     },
     {
+      "input": "I do not worry that things that might go wrong.",
+      "personality_id": "N",
+      "trait_identifier": "Calm"
+    },
+    {
       "input": "I sometimes feel self-conscious in social situations.",
       "personality_id": "N",
       "trait_identifier": "Self-conscious"
+    },
+    {
+      "input": "I feel rather insecure about myself.",
+      "personality_id": "N",
+      "trait_identifier": "Self-conscious"
+    },
+    {
+      "input": "I don't feel insecure about myself.",
+      "personality_id": "E",
+      "trait_identifier": "Confident"
+    },
+    {
+      "input": "I am not insecure.",
+      "personality_id": "E",
+      "trait_identifier": "Confident"
+    },
+    {
+      "input": "I've always been insecure.",
+      "personality_id": "N",
+      "trait_identifier": "Insecure"
+    },
+    {
+      "input": "I often doubt myself.",
+      "personality_id": "N",
+      "trait_identifier": "Insecure"
+    },
+    {
+      "input": "I'm not confident in my abilities.",
+      "personality_id": "N",
+      "trait_identifier": "Insecure"
+    },
+    {
+      "input": "I do not believe in myself.",
+      "personality_id": "N",
+      "trait_identifier": "Insecure"
     }
   ]
 }

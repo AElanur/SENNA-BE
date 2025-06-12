@@ -21,24 +21,19 @@ class BotService:
             logits = self.personality_model(input_tensor)
             predicted_class = logits.argmax(dim=1).item()
 
-        personality_label = self.trait_info[predicted_class]["label"]
-        trait_identifiers = self.trait_info[predicted_class]["trait_identifiers"]
-        keywords = self.trait_info[predicted_class]["keywords"]
+        personality_info = self.trait_info[predicted_class]
+        trait_keywords = personality_info["trait_keywords"]
 
         matched_identifier = None
-        for trait, kw_list in zip(trait_identifiers, self.trait_info[predicted_class]["trait_identifiers"]):
-            if trait.lower() in text:
+        # Check all trait keywords for matches in the text
+        for trait, kw_list in trait_keywords.items():
+            if any(kw in text for kw in kw_list):
                 matched_identifier = trait
                 break
 
+        # Optional: fallback to most likely trait if none matched
         if not matched_identifier:
-            for trait, kw_list in zip(trait_identifiers, keywords):
-                if any(kw in text for kw in (kw_list if isinstance(kw_list, list) else [kw_list])):
-                    matched_identifier = trait
-                    break
-
-        if not matched_identifier:
-            matched_identifier = trait_identifiers[0]
+            matched_identifier = list(trait_keywords.keys())[0]
 
         return matched_identifier
 
@@ -59,7 +54,7 @@ class BotService:
         }
         self.insert_message(bot_message)
         self.insert_trait_to_user(bot_message)
-        return {"status": "success", "message": "Bot response inserted."}
+        return {"status": "success", "message": "Bot response inserted.", "identified_trait": detected_trait}
 
     def generate_response(self, conversation_history):
         user_message = conversation_history[-1]["input"]
