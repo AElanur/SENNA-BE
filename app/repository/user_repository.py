@@ -32,8 +32,8 @@ class UserRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(query, (user_data,))
-                user_data = cursor.fetchone()
+                data_user = cursor.fetchone()
                 connection.commit()
-                return user_data
+                return data_user
         except Exception as e:
             print("Error inserting trait:", e)
