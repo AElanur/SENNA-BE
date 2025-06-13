@@ -5,7 +5,6 @@ class UserService:
         self.user_repository = user_repository
 
     def create_user(self, user_data):
-        print(user_data)
         hashed_password = self.hash_password(user_data["password"])
         user = {
             "username": user_data["username"],

@@ -25,13 +25,11 @@ class BotService:
         trait_keywords = personality_info["trait_keywords"]
 
         matched_identifier = None
-        # Check all trait keywords for matches in the text
         for trait, kw_list in trait_keywords.items():
             if any(kw in text for kw in kw_list):
                 matched_identifier = trait
                 break
 
-        # Optional: fallback to most likely trait if none matched
         if not matched_identifier:
             matched_identifier = list(trait_keywords.keys())[0]
 
@@ -48,6 +46,7 @@ class BotService:
         bot_message = {
             "chat_id": data['chat_id'],
             "user_id": self.get_bot_id(data['chat_id']),
+            "receiver_id": data['user_id'],
             "content": bot_response,
             "sender_type": "bot",
             "trait_identifier": detected_trait

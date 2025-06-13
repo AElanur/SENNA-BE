@@ -64,7 +64,7 @@ trait_info = {
             "Self-conscious": ["self-conscious", "awkward", "shy", "embarrassed"],
             "Temperamental": ["temperamental", "irritable", "volatile", "moody"],
             "Easily stressed": ["easily stressed", "overwhelmed", "stressed out", "tense"],
-            "Calm": ["calm", "emotionally stable", "composed", "relaxed"]
+            "Calm": ["calm", "emotionally stable", "composed", "relaxed", "not worry"],
         }
     }
 }

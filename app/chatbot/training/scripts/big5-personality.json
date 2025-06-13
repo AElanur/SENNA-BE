@@ -262,11 +262,11 @@
     },
     {
       "trait_identifier": "Calm",
-      "keywords": ["calm", "emotionally stable", "composed", "relaxed"]
+      "keywords": ["calm", "emotionally stable", "composed", "relaxed", "not worry"]
     },
     {
       "trait_identifier": "Insecure",
-      "keywords": ["insecure", "uncertain", "not sure", "held back", "lack confidence", "doubt myself", "not confident"]
+      "keywords": ["insecure", "uncertain", "not sure", "held back", "lack confidence", "doubt myself", "not confident", "my looks"]
     }
   ],
   "data": [
@@ -424,6 +424,6 @@
       "input": "I do not believe in myself.",
       "personality_id": "N",
       "trait_identifier": "Insecure"
-    }
+    },
   ]
 }

@@ -8,4 +8,10 @@ def create_chat_blueprint(chat_service):
     def create_chat():
         chat_data = request.get_json()
         return jsonify(chat_service.create_chat(chat_data))
+
+    @chat_bp.route("/chat/<int:chat_id>/participants", methods=["GET"])
+    def get_chat_participants(chat_id):
+        return jsonify(chat_service.get_chat_participants(chat_id))
+
     return chat_bp
+
