@@ -5,8 +5,8 @@ class TraitsOfUserRepository:
     def get_traits_of_user(user_id):
         query = (
             'SELECT t.trait_identifier '
-            'FROM "Traits-of-user" tus '
-            'JOIN Trait t ON t.trait_id = tus.trait_id '
+            'FROM traits_of_user tus '
+            'JOIN trait t ON t.trait_id = tus.trait_id '
             'WHERE tus.user_id = %s'
         )
         try:
@@ -30,8 +30,8 @@ class TraitsOfUserRepository:
                 cursor = connection.cursor()
                 cursor.execute(
                     'SELECT tus.trait_count, mou.messaging_count '
-                    'FROM "Traits-of-user" tus '
-                    'JOIN "MessagesOfUser" mou ON mou.user_id = tus.user_id '
+                    'FROM traits_of_user tus '
+                    'JOIN messages_of_user mou ON mou.user_id = tus.user_id '
                     'WHERE mou.user_id = %s',
                     (user_id,)
                 )
@@ -46,12 +46,12 @@ class TraitsOfUserRepository:
     @staticmethod
     def insert_trait(generated_response):
         query = (
-            'INSERT INTO "Traits-of-user" (user_id, trait_id, trait_count, trait_possession) '
+            'INSERT INTO traits_of_user (user_id, trait_id, trait_count, trait_possession) '
             'SELECT %s, t.trait_id, 1, %s '
-            'FROM Trait t '
+            'FROM trait t '
             'WHERE t.trait_identifier = %s '
             'ON CONFLICT (user_id, trait_id) '
-            'DO UPDATE SET trait_count = "Traits-of-user".trait_count + 1, '
+            'DO UPDATE SET trait_count = traits_of_user.trait_count + 1, '
             'trait_possession = EXCLUDED.trait_possession;'
         )
         try:

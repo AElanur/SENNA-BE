@@ -7,10 +7,6 @@
     "type": "dialog_list",
     "fields": ["conversation"]
   },
-  "tweet_sentiment": {
-    "type": "classification",
-    "fields": ["text", "label"]
-  },
   "lmsys_chat": {
     "type": "dialog_list",
     "fields": ["conversations"]

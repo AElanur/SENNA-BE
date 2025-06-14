@@ -4,7 +4,7 @@ from .connection_repository import create_connection
 class MessageRepository:
     @staticmethod
     def get_messages_from_chat(chat_id):
-        query = 'SELECT * FROM "Message" WHERE "chat_id" = %s ORDER BY "message_id" ASC'
+        query = 'SELECT * FROM message WHERE "chat_id" = %s ORDER BY message_id ASC'
         try:
             with create_connection() as connection:
                 cursor = connection.cursor()
@@ -21,7 +21,7 @@ class MessageRepository:
 
     @staticmethod
     def delete_message(message_id):
-        query = 'DELETE FROM "Message" WHERE "message_id" = %s'
+        query = 'DELETE FROM message WHERE message_id = %s'
         try:
             with create_connection() as connection:
                 cursor = connection.cursor()
@@ -31,20 +31,20 @@ class MessageRepository:
             return []
 
     @staticmethod
-    def insert_message(user_message):
+    def insert_message(chat_id, user_id, content, sender_type):
         query = (
-            'INSERT INTO "Message" ("chat_id", "user_id", "content", "timestamp", "sender_type") '
+            'INSERT INTO message (chat_id, user_id, content, "timestamp", sender_type) '
             'VALUES (%s, %s, %s, %s, %s)'
         )
         try:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(query, (
-                    user_message["chat_id"],
-                    user_message["user_id"],
-                    user_message["content"],
+                    chat_id,
+                    user_id,
+                    content,
                     datetime.today().strftime('%Y-%m-%d %H:%M:%S'),
-                    user_message["sender_type"]
+                    sender_type
                 ))
                 connection.commit()
         except Exception as e:

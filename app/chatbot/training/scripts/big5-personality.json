@@ -195,80 +195,6 @@
       "personality_id": "N"
     }
   ],
-  "trait_keywords": [
-    {
-      "trait_identifier": "Creative",
-      "keywords": ["creative", "original", "innovative", "ideas"]
-    },
-    {
-      "trait_identifier": "Curious",
-      "keywords": ["curious", "explore", "discover", "new experiences", "find out", "tell me more", "what else"]
-    },
-    {
-      "trait_identifier": "Confident",
-      "keywords": ["confident", "Self-assured"]
-    },
-    {
-      "trait_identifier": "Organized",
-      "keywords": ["organized", "orderly", "neat", "tidy"]
-    },
-    {
-      "trait_identifier": "Unorganized",
-      "keywords": ["unorganized", "not orderly", "not neat", "chaotic"]
-    },
-    {
-      "trait_identifier": "Reliable",
-      "keywords": ["reliable", "dependable", "trustworthy", "count on"]
-    },
-    {
-      "trait_identifier": "Sociable",
-      "keywords": ["sociable", "outgoing", "talkative", "meet people"]
-    },
-    {
-      "trait_identifier": "Energetic",
-      "keywords": ["energetic", "full of energy", "active"]
-    },
-    {
-      "trait_identifier": "Altruistic",
-      "keywords": ["altruistic", "help others", "selfless", "generous"]
-    },
-    {
-      "trait_identifier": "Forgiving",
-      "keywords": ["forgiving", "let go", "move on", "forgive"]
-    },
-    {
-      "trait_identifier": "Unforgiving",
-      "keywords": ["unforgiving", "hooked on", "vengeful", "don't forgive", "won't forgive"]
-    },
-    {
-      "trait_identifier": "Anxious",
-      "keywords": ["anxious", "worry", "nervous", "uneasy"]
-    },
-    {
-      "trait_identifier": "Rude",
-      "keywords": [
-        "rude",
-        "you suck",
-        "you're stupid"
-      ]
-    },
-    {
-      "trait_identifier": "Hateful",
-      "keywords": ["rude", "you suck", "you're stupid"]
-    },
-    {
-      "trait_identifier": "Self-conscious",
-      "keywords": ["self-conscious", "awkward", "shy", "embarrassed", "insecure"]
-    },
-    {
-      "trait_identifier": "Calm",
-      "keywords": ["calm", "emotionally stable", "composed", "relaxed", "not worry"]
-    },
-    {
-      "trait_identifier": "Insecure",
-      "keywords": ["insecure", "uncertain", "not sure", "held back", "lack confidence", "doubt myself", "not confident", "my looks"]
-    }
-  ],
   "data": [
     {
         "input": "I enjoy trying new and different activities.",
@@ -424,6 +350,107 @@
       "input": "I do not believe in myself.",
       "personality_id": "N",
       "trait_identifier": "Insecure"
-    }
+    },
+    {
+    "input": "I never doubt myself.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I'm sure of my abilities.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "People say I'm very self-assured.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I always believe in myself.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I rarely feel confident.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I constantly second-guess my decisions.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I'm always worried I'm not good enough.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I often compare myself to others and feel inadequate.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I struggle to accept compliments.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "It's hard for me to trust in my own skills.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+    {
+    "input": "I feel comfortable taking on new challenges.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I'm proud of what I can achieve.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I trust my instincts when making decisions.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I don't hesitate to speak my mind.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "I know I can handle whatever comes my way.",
+    "personality_id": "E",
+    "trait_identifier": "Confident"
+  },
+  {
+    "input": "Sometimes I feel like I'm not good enough.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I often feel anxious about my performance.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I worry that others are better than me.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I lack the confidence to try new things.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  },
+  {
+    "input": "I feel uncomfortable when I'm the center of attention.",
+    "personality_id": "N",
+    "trait_identifier": "Insecure"
+  }
+
   ]
 }
