@@ -36,6 +36,7 @@ class BotService:
         return matched_identifier
 
     def handle_message(self, data):
+        print(data)
         conversation_history = self.get_conversation_history(data['chat_id'])
         bot_response = self.generate_response(conversation_history)
         user_message = conversation_history[-1]["input"]

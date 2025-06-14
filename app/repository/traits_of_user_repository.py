@@ -32,7 +32,7 @@ class TraitsOfUserRepository:
                     'SELECT tus.trait_count, mou.messaging_count '
                     'FROM "Traits-of-user" tus '
                     'JOIN "MessagesOfUser" mou ON mou.user_id = tus.user_id '
-                    'WHERE tus.user_id = %s',
+                    'WHERE mou.user_id = %s',
                     (user_id,)
                 )
                 result = cursor.fetchone()
@@ -58,7 +58,7 @@ class TraitsOfUserRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(query, (
-                    generated_response["user_id"],
+                    generated_response["receiver_id"],
                     False,
                     generated_response["trait_identifier"],
                 ))

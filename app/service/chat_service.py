@@ -13,6 +13,7 @@ class ChatService:
         return self.chat_repository.create_chat(chat_data)
 
     def get_chat_participants(self, chat_id):
+        print(self.chat_repository.get_chat_participants(chat_id))
         return self.chat_repository.get_chat_participants(chat_id)
 
     def create_chatbot(self, chatbot_data):
