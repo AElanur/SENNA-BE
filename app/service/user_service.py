@@ -12,6 +12,10 @@ class UserService:
             return session['user_id']
         return None
 
+    def logout_user(self, user_id):
+        self.user_repository.delete_sessions_by_user(user_id)
+        return {"status": "success", "message": "User logged out."}
+
     def create_user(self, user_data):
         hashed_password = self.hash_password(user_data["password"])
         user = {

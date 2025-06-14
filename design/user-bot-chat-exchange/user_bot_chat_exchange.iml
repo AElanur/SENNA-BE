@@ -1,0 +1,73 @@
+@startuml
+
+' --- Classes ---
+class User {
+    user_id: int
+    user_name: string
+    email: string
+    +createChat()
+    +sendMessage()
+    +login()
+    +logout()
+}
+
+class Trait {
+    trait_id: int
+    trait_identifier: string
+    personality_id: string
+}
+
+class Personality {
+    personality_id: string
+    personality_type: string
+}
+
+class UserTrait {
+    user_trait_id: int
+    user_id: int
+    trait_id: int
+    trait_count: int
+    trait_possession: boolean
+    +CalculateTraitPossession()
+    +CheckTraitPresence()
+}
+
+class Chatbot {
+    chatbot_id: int
+    chatbot_name: string
+    created_at: datetime
+    created_by_user_id: int
+    +generateResponse()
+    +sendMessage()
+}
+
+class Chat {
+    chat_id: int
+    user_id: int
+    chatbot_id: int
+    +addMessage()
+    +getMessages()
+}
+
+class Message {
+    message_id: int
+    chat_id: int
+    user_id: int
+    message_content: string
+    timestamp: datetime
+    sender_type: string
+}
+
+' --- Relationships ---
+Message "0..*" -up- "0..*" Chat : "has"
+Message "0..*" -left- "0..*" User : "sends"
+Message "0..*" -right- "0..*" Chatbot : "generates"
+Message "0..*" -up- "0..*" UserTrait : "consists"
+UserTrait "0..*" -left- "0..*" Trait : "consists"
+Trait "0..*" -down- "1" Personality : "consists"
+User "1" -down- "0..*" UserTrait
+User "1" -down- "1" Chat
+Chatbot "1" -down- "1" Chat
+
+
+@enduml

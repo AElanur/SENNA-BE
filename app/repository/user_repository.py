@@ -23,7 +23,7 @@ class UserRepository:
             print("Error inserting trait:", e)
 
     @staticmethod
-    def login_user(user_data):
+    def  login_user(user_data):
         query = (
             'SELECT u.user_id, u.password, c.chat_id FROM senna_user u '
             'JOIN chat c ON c.user_id = u.user_id '
@@ -87,3 +87,15 @@ class UserRepository:
             print("Error validating session:", e)
             return None
 
+    @staticmethod
+    def delete_sessions_by_user(user_id):
+        query = (
+            'DELETE FROM user_session WHERE user_id = %s;'
+        )
+        try:
+            with create_connection() as connection:
+                cursor = connection.cursor()
+                cursor.execute(query, (user_id,))
+                connection.commit()
+        except Exception as e:
+            print("Error deleting session(s):", e)

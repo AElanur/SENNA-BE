@@ -46,10 +46,14 @@ class BotService:
         return {"status": "success", "message": "Bot response inserted.", "identified_trait": detected_trait}
 
     def generate_response(self, conversation_history):
-        user_message = conversation_history[-1]["input"]
-
-        response = self.bot_model.generate_message(conversation_history, user_message)
-        return response
+        if not conversation_history:
+            user_message = ""
+            response = self.bot_model.generate_message([], user_message)
+            return response
+        else:
+            user_message = conversation_history[-1]["input"]
+            response = self.bot_model.generate_message(conversation_history, user_message)
+            return response
 
     def get_conversation_history(self, chat_id):
         messages = self.message_repository.get_messages_from_chat(chat_id)
@@ -74,4 +78,5 @@ class BotService:
         )
 
     def insert_trait_to_user(self, data):
+        print(data)
         self.chatbot_classifier.classify_trait(data)

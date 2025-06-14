@@ -5,16 +5,19 @@ from app.chatbot.training.communication.model import get_tokenizer, get_model
 from app.util.training_script import get_training_script
 from ..train_model import TrainModel
 
-
 script_dir = os.path.dirname(os.path.abspath(__file__))
-save_dir = os.path.join(script_dir, 'training_data', 'communication_data')
+save_dir = os.path.join(script_dir, 'training_data')
 os.makedirs(save_dir, exist_ok=True)
 
 dataset_ini_path = get_training_script("communication_dataset")
 reader = DatasetReader(dataset_ini_path)
 qa_pairs = reader.load_and_prepare_all_datasets()
-tokenizer = get_tokenizer("t5-small")
-model = get_model("t5-small")
+
+model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+
+tokenizer = get_tokenizer(model_name)
+model = get_model(model_name)
+
 dataset = CommunicationData(qa_pairs, tokenizer, max_length=256)
 
 trainer = TrainModel(model, dataset, save_dir)

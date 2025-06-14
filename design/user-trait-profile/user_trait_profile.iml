@@ -1,49 +1,47 @@
 @startuml
-
-' --- Classes ---
-class User {
-    user_id: int
+' --- Tables ---
+entity "User" as user {
+    *user_id: int <<PK>>
     user_name: string
 }
 
-class Message {
-    message_id: int
-    chat_id: int
-    user_id: int
+entity "Message" as message {
+    *message_id: int <<PK>>
+    chat_id: int <<FK>>
+    user_id: int <<FK>>
     message_content: string
     timestamp: datetime
     sender_type: string
 }
 
-class MessagesOfUser {
-    message_of_user_id: int
-    user_id: int
+entity "MessagesOfUser" as messages_of_user {
+    *message_of_user_id: int <<PK>>
+    user_id: int <<FK>>
     messaging_count: int
 }
 
-class TraitsOfUser {
-    traits_of_user_id: int
-    user_id: int
-    trait_id: int
+entity "TraitsOfUser" as traits_of_user {
+    *traits_of_user_id: int <<PK>>
+    user_id: int <<FK>>
+    trait_id: int <<FK>>
     trait_count: int
     trait_possession: boolean
 }
 
 ' --- Relationships ---
-TraitsOfUser -down- User
-TraitsOfUser -- MessagesOfUser
+user ||--o{ traits_of_user : "has"
+user ||--o{ messages_of_user : "has"
+user ||--o{ message : "writes"
 
-MessagesOfUser -down- User
-MessagesOfUser -- Message
-
-Message -right- User
+traits_of_user }o--|| messages_of_user : "analyzes"
+traits_of_user }o--|| user : "belongs to"
+messages_of_user }o--|| message : "counts"
 
 ' --- Note Placement ---
-note left of MessagesOfUser
-  Because of privacy, messages of user are not stored.
-  However, to analyze if a user has a certain trait,
-  a percentage is needed to see how often this trait was
-  recognized before this can be assigned to the user.
+note left of messages_of_user
+  For privacy, messages are not stored directly.
+  To analyze user traits, a percentage is calculated
+  from recognized traits before assignment.
 end note
 
 @enduml

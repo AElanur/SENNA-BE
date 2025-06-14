@@ -1,14 +1,13 @@
 from torch.utils.data import Dataset
+import torch
 
 class CommunicationData(Dataset):
-    def __init__(self, qa_pairs, tokenizer, max_length=64):
+    def __init__(self, qa_pairs, tokenizer, max_length=256):
         self.qa_pairs = qa_pairs
         self.tokenizer = tokenizer
         self.max_length = max_length
 
     def __len__(self):
-        print("Sample:", self.qa_pairs[:3])
-        print("Total samples:", len(self.qa_pairs))
         return len(self.qa_pairs)
 
     def __getitem__(self, idx):
@@ -16,16 +15,35 @@ class CommunicationData(Dataset):
         input_text = item["input"]
         target_text = item["target"]
 
-        input_enc = self.tokenizer(
-            input_text, padding="max_length", truncation=True,
-            max_length=self.max_length, return_tensors="pt"
+        prompt = input_text.strip()
+        answer = target_text.strip()
+        full_text = f"{prompt}\n{answer}"
+
+        encodings = self.tokenizer(
+            full_text,
+            truncation=True,
+            max_length=self.max_length,
+            padding="max_length",
+            return_tensors="pt"
         )
-        target_enc = self.tokenizer(
-            target_text, padding="max_length", truncation=True,
-            max_length=self.max_length, return_tensors="pt"
+
+        input_ids = encodings["input_ids"].squeeze(0)
+        attention_mask = encodings["attention_mask"].squeeze(0)
+
+        prompt_enc = self.tokenizer(
+            prompt,
+            truncation=True,
+            max_length=self.max_length,
+            padding="max_length",
+            return_tensors="pt"
         )
+        prompt_len = prompt_enc["input_ids"].squeeze(0).ne(self.tokenizer.pad_token_id).sum().item()
+
+        labels = input_ids.clone()
+        labels[:prompt_len] = -100
+
         return {
-            "input_ids": input_enc["input_ids"].squeeze(0),
-            "attention_mask": input_enc["attention_mask"].squeeze(0),
-            "labels": target_enc["input_ids"].squeeze(0)
+            "input_ids": input_ids,
+            "attention_mask": attention_mask,
+            "labels": labels
         }

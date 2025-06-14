@@ -1,7 +1,8 @@
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
-def get_tokenizer(model_name="t5-small"):
+
+def get_tokenizer(model_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
     return AutoTokenizer.from_pretrained(model_name)
 
-def get_model(model_name="t5-small"):
-    return AutoModelForSeq2SeqLM.from_pretrained(model_name)
+def get_model(model_name="TinyLlama/TinyLlama-1.1B-Chat-v1.0"):
+    return AutoModelForCausalLM.from_pretrained(model_name)

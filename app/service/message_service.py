@@ -19,7 +19,7 @@ class MessageService:
     def insert_message(self, user_id, chat_id, data):
         content = data['content']
         sender_type = data['sender_type']
-        self.message_repository.insert_message(user_id, chat_id, content, sender_type)
+        self.message_repository.insert_message(chat_id, user_id, content, sender_type)
         self.delete_messages_after_limit(user_id, chat_id)
 
     def delete_messages_after_limit(self, user_id, chat_id):
