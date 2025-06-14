@@ -13,9 +13,10 @@ dataset_ini_path = get_training_script("communication_dataset")
 reader = DatasetReader(dataset_ini_path)
 qa_pairs = reader.load_and_prepare_all_datasets()
 
-model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+model_name = "distilgpt2"
 
 tokenizer = get_tokenizer(model_name)
+tokenizer.pad_token = tokenizer.eos_token
 model = get_model(model_name)
 
 dataset = CommunicationData(qa_pairs, tokenizer, max_length=256)

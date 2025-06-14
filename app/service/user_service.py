@@ -1,6 +1,6 @@
 import bcrypt
 import secrets
-from datetime import datetime, UTC, timedelta
+from datetime import datetime, timezone, timedelta
 
 class UserService:
     def __init__(self, user_repository):
@@ -8,7 +8,7 @@ class UserService:
 
     def validate_session(self, session_key):
         session = self.user_repository.get_session(session_key)
-        if session and session['expires_at'] > datetime.now(UTC):
+        if session and session['expires_at'] > datetime.now(timezone.utc):
             return session['user_id']
         return None
 
