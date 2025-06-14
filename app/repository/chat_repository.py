@@ -47,7 +47,7 @@ class ChatRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(
-                    'SELECT "chatbot_id" FROM "Chat" WHERE "chatbot_id" = %s', (bot_id,)
+                    'SELECT chatbot_id FROM "Chat" WHERE chat_id = %s', (bot_id,)
                 )
                 result = cursor.fetchone()
                 if result:
@@ -63,10 +63,10 @@ class ChatRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(
-                    'SELECT "chatbot_name", "username" FROM "Chat" c '
+                    'SELECT cb.chatbot_name, u.username FROM "Chat" c '
                     'JOIN "User" u ON u.user_id = c.user_id '
-                    'JOIN "Chatbot" cb ON cb.chatbot_id = c.chatbot_id '
-                    'WHERE "chat_id" = %s', (chat_id,)
+                    'LEFT JOIN "Chatbot" cb ON cb.chatbot_id = c.chatbot_id '
+                    'WHERE c.chat_id = %s', (chat_id,)
                 )
                 row = cursor.fetchone()
                 connection.commit()

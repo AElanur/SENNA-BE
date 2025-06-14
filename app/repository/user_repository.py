@@ -23,9 +23,10 @@ class UserRepository:
             print("Error inserting trait:", e)
 
     @staticmethod
-    def get_user(user_data):
+    def login_user(user_data):
         query = (
-            'SELECT user_id, username, password FROM "User" '
+            'SELECT u.user_id, u.password, c.chat_id FROM "User" u '
+            'JOIN "Chat" c ON c.user_id = u.user_id '
             'WHERE username = %s;'
         )
         try:
