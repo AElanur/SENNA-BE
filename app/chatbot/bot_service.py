@@ -13,36 +13,25 @@ class BotService:
         self.trait_info = trait_info
 
     def analyze_personality_trait(self, user_message):
-        text = user_message.lower()
-
         indices = text_to_indices(user_message, vocab)
         input_tensor = torch.tensor([indices], dtype=torch.long).to(self.personality_model.embedding.weight.device)
         with torch.no_grad():
             logits = self.personality_model(input_tensor)
             predicted_class = logits.argmax(dim=1).item()
 
-        personality_info = self.trait_info[predicted_class]
-        trait_keywords = personality_info["trait_keywords"]
-
-        matched_identifier = None
-        for trait, kw_list in trait_keywords.items():
-            if any(kw in text for kw in kw_list):
-                matched_identifier = trait
-                break
-
-        if not matched_identifier:
-            matched_identifier = list(trait_keywords.keys())[0]
-
-        return matched_identifier
+        return self.trait_info[predicted_class]["label"]
 
     def handle_message(self, data):
-        print(data)
         conversation_history = self.get_conversation_history(data['chat_id'])
         bot_response = self.generate_response(conversation_history)
-        user_message = conversation_history[-1]["input"]
+        user_message = next(
+            (msg["input"] for msg in reversed(conversation_history) if "input" in msg),
+            None
+        )
+        if user_message is None:
+            raise ValueError("No user message found in conversation history.")
 
         detected_trait = self.analyze_personality_trait(user_message)
-        print(f'Trait detected: {detected_trait}')
 
         bot_message = {
             "chat_id": data['chat_id'],
@@ -57,10 +46,14 @@ class BotService:
         return {"status": "success", "message": "Bot response inserted.", "identified_trait": detected_trait}
 
     def generate_response(self, conversation_history):
-        user_message = conversation_history[-1]["input"]
-
-        response = self.bot_model.generate_message(conversation_history, user_message)
-        return response
+        if not conversation_history:
+            user_message = ""
+            response = self.bot_model.generate_message([], user_message)
+            return response
+        else:
+            user_message = conversation_history[-1]["input"]
+            response = self.bot_model.generate_message(conversation_history, user_message)
+            return response
 
     def get_conversation_history(self, chat_id):
         messages = self.message_repository.get_messages_from_chat(chat_id)
@@ -77,7 +70,13 @@ class BotService:
         return bot_id
 
     def insert_message(self, data):
-        self.message_repository.insert_message(data)
+        self.message_repository.insert_message(
+            data["chat_id"],
+            data["user_id"],
+            data["content"],
+            data["sender_type"]
+        )
 
     def insert_trait_to_user(self, data):
+        print(data)
         self.chatbot_classifier.classify_trait(data)

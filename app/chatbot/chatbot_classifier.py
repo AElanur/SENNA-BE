@@ -10,7 +10,6 @@ class ChatbotClassifier:
 
     def calculate_presence_of_trait(self, user_id):
         result = self.get_messaging_trait_count(user_id)
-        print(user_id)
         if result == None:
             print("No messages present")
         elif result[0] / result[1] > self.trait_possession_grade:

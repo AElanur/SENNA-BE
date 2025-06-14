@@ -4,7 +4,7 @@ class ChatRepository:
     @staticmethod
     def create_chatbot(chatbot_data):
         query = (
-            'INSERT INTO "Chatbot" (chatbot_name, created_by_user_id) '
+            'INSERT INTO chatbot (chatbot_name, created_by_user_id) '
             'VALUES (%s, %s) '
             'RETURNING chatbot_id'
         )
@@ -24,7 +24,7 @@ class ChatRepository:
     @staticmethod
     def create_chat(chat_data):
         query = (
-            'INSERT INTO "Chat" (user_id, chatbot_id) '
+            'INSERT INTO chatc (user_id, chatbot_id) '
             'VALUES (%s, %s) '
             'RETURNING chat_id'
         )
@@ -47,7 +47,7 @@ class ChatRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(
-                    'SELECT chatbot_id FROM "Chat" WHERE chat_id = %s', (bot_id,)
+                    'SELECT chatbot_id FROM chat WHERE chat_id = %s', (bot_id,)
                 )
                 result = cursor.fetchone()
                 if result:
@@ -63,9 +63,9 @@ class ChatRepository:
             with create_connection() as connection:
                 cursor = connection.cursor()
                 cursor.execute(
-                    'SELECT cb.chatbot_name, u.username FROM "Chat" c '
-                    'JOIN "User" u ON u.user_id = c.user_id '
-                    'LEFT JOIN "Chatbot" cb ON cb.chatbot_id = c.chatbot_id '
+                    'SELECT cb.chatbot_name, u.username FROM chat c '
+                    'JOIN senna_user u ON u.user_id = c.user_id '
+                    'LEFT JOIN chatbot cb ON cb.chatbot_id = c.chatbot_id '
                     'WHERE c.chat_id = %s', (chat_id,)
                 )
                 row = cursor.fetchone()

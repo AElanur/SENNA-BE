@@ -1,4 +1,5 @@
 from flask import request, Blueprint, jsonify
+from app.auth.decorater import login_required
 
 
 def create_user_blueprint(user_service):
@@ -16,5 +17,12 @@ def create_user_blueprint(user_service):
         response = user_service.login_user(user_data)
         return jsonify(response)
 
+    @user_bp.route("/user/logout", methods=["POST"])
+    @login_required
+    def logout_user(user_id):
+        response = user_service.logout_user(user_id)
+        return jsonify(response)
+
     return user_bp
+
 

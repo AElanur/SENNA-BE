@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, g
 from flask_cors import CORS
 from sympy.printing.pytorch import torch
 
@@ -19,7 +19,7 @@ from app.chatbot.chatbot_classifier import ChatbotClassifier
 from app.chatbot.chatbot import Chatbot
 from app.chatbot.training.big5.text_cnn import TextCNN
 from app.chatbot.training.big5.tokenizer import vocab
-from app.chatbot.training.big5.trait_info import trait_info
+from app.chatbot.training.big5.personality_mapper import trait_info
 
 def create_app():
     app = Flask(__name__)
@@ -27,6 +27,10 @@ def create_app():
     model_path = "app/chatbot/training/communication/training_data/communication_data"
     personality_model_path = "app/chatbot/training/big5/data/big5_dataset.pt"
     max_length = 256
+
+    @app.before_request
+    def inject_services():
+        g.user_service = UserService(UserRepository())
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
